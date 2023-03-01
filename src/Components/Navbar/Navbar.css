@@ -1,0 +1,78 @@
+.navbarLinks.admin {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbarLinksUser {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.link {
+    text-decoration: none;
+    color: rgb(74, 74, 74);
+}
+
+.link:hover {
+    color: black;
+}
+
+.navLine {
+    position: absolute;
+    top: 40px;
+    width: 1400px;
+    border-bottom: 2px solid rgb(147, 147, 147);
+}
+
+.link {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.linkHome::before {
+    content: url("/src/img/home.svg");
+    width: 20px;
+    height: 20px;
+    padding-right: 3px;
+}
+
+.linkProducts::before {
+    content: url("/src/img/shop.svg");
+    width: 20px;
+    height: 20px;
+    padding-right: 3px;
+}
+
+.linkAdd::before {
+    content: url("/src/img/add.svg");
+    width: 20px;
+    height: 20px;
+    padding-right: 3px;
+}
+
+.logout {
+    position: absolute;
+    right: 0;
+    margin-left: 1300px;
+    margin-top: -30px;
+    display: flex;
+    align-items: center;
+}
+
+.logout::after {
+    content: url("/src/img/exit-to-app.svg");
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}
