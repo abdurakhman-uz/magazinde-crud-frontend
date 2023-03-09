@@ -1,30 +1,40 @@
 import { Button, Input, Form, Select } from "antd";
-import {motion} from "framer-motion"
-// import { useNavigate } from "react-router-dom";
-import { Message } from "../../Components"
-import "../../global.css"
+import { useSpring, animated } from "@react-spring/web";
+import { useNavigate } from "react-router-dom";
+import { Message } from "../../Components";
+import "../../global.css";
 
 const { Option } = Select;
-const token = localStorage.getItem("token")
+const token = localStorage.getItem("token");
 
 function Register() {
-  // const navigate = useNavigate
-  const Finish = (values) => {
+  const styles = useSpring({
+    from: {
+      opacity: 0,
+      y: 100,
+    },
+    to: {
+      opacity: 1,
+      y: 1,
+    },
+  });
 
+  const navigate = useNavigate;
+  const Finish = (values) => {
     fetch(process.env.REACT_APP_BECKEND + "/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        token: token
+        token: token,
       },
       body: JSON.stringify(values),
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data.code === 1){
+        if (data.code === 1) {
           return Message("error", data.msg);
         } else {
-          // navigate("/auth/login")
+          navigate("/auth/login");
           return Message("success", data.msg);
         }
       })
@@ -37,28 +47,9 @@ function Register() {
     console.log("Failed:", errorInfo);
   };
 
-  const animation = {
-    hidden: {
-      x: 0,
-      y: 50,
-      opacity: 0
-    },
-    visible: {
-      x: 0,
-      y: 1,
-      opacity: 1
-    }
-  }
-
   return (
     <>
-
-      <motion.div 
-        className="addUser"
-        initial="hidden"
-        whileInView="visible"
-        variants={animation}
-      >
+      <animated.div style={styles}>
         <Form
           className="loginForm"
           name="basic"
@@ -101,16 +92,13 @@ function Register() {
             <Input />
           </Form.Item>
 
-            <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-                <Select
-                    placeholder="Select gender"
-                    allowClear
-                >
-                    <Option value="male">male</Option>
-                    <Option value="female">female</Option>
-                    <Option value="other">other</Option>
-                </Select>
-            </Form.Item>
+          <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+            <Select placeholder="Select gender" allowClear>
+              <Option value="male">male</Option>
+              <Option value="female">female</Option>
+              <Option value="other">other</Option>
+            </Select>
+          </Form.Item>
 
           <Form.Item
             label="Password"
@@ -136,7 +124,7 @@ function Register() {
             </Button>
           </Form.Item>
         </Form>
-      </motion.div>
+      </animated.div>
     </>
   );
 }

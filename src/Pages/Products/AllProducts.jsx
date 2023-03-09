@@ -1,14 +1,24 @@
 import { useContext, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useSpring, animated } from "@react-spring/web";
 import "../../global.css";
 
-import { fadeIn, staggerContainer } from "../../Components/Motion/Motion";
-import { BasicCard, DefaultCard } from "../../Components";
+import { DefaultCard } from "../../Components";
 import { MyContext } from "../../App";
 
 const { REACT_APP_BECKEND } = process.env;
 
 function AllProducts() {
+  const styles = useSpring({
+    from: {
+      opacity: 0,
+      y: 100,
+    },
+    to: {
+      opacity: 1,
+      y: 1,
+    },
+  });
+
   const { edited, setEdited } = useContext(MyContext);
   const [data, setData] = useState([]);
 
@@ -33,27 +43,9 @@ function AllProducts() {
       <div className="products">
         {data ? (
           data.map((item) => (
-            <motion.div
-              animate={{
-                x: 0,
-                y: 20,
-                scale: 1,
-                rotate: 0,
-              }}
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: false, amount: 0.25 }}
-              key={item.id}
-              className="cardsWrapper"
-            >
-              <motion.div
-                variants={fadeIn("up", "tween", 0.2, 0.4)}
-                className="cards"
-              >
-                {DefaultCard(item)}
-              </motion.div>
-            </motion.div>
+            <animated.div style={styles} className="cards">
+              {DefaultCard(item)}
+            </animated.div>
           ))
         ) : (
           <div>Failed to load data</div>

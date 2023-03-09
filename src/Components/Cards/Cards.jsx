@@ -108,7 +108,7 @@ const BasicCard = (item) => {
           ),
         ]}
       >
-        <Meta title={item.name} description={item.author} price={item.price} />
+        <Meta title={item.title} description={item.author} price={item.price} />
         <hr />
         {/* <br /> */}
         <Meta description={item.price} />
@@ -136,8 +136,8 @@ const BasicCard = (item) => {
           autoComplete="off"
         >
           <Form.Item
-            label="Name"
-            name="name"
+            label="Title"
+            name="title"
             rules={[
               {
                 message: "Input required",
